@@ -1,31 +1,84 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
+import { FaStar } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const testimonios = [
-  { nombre: "María G.", texto: "Las cortinas quedaron hermosas, ¡excelente atención!" },
-  { nombre: "Carlos R.", texto: "Rápidos, responsables y con muy buenos precios." },
+  {
+    nombre: "Mebu Viollaz.",
+    texto:
+      "Excelente atención, variedad de productos de calidad a buen precio.",
+    foto: "/fotos/maria.jpg",
+  },
+  {
+    nombre: "Pato Nauschuetz.",
+    texto:
+      "Buena atención. Solucionaron lo que necesitaba. Productos excelentes.",
+    foto: "/fotos/maria.jpg",
+  },
+  {
+    nombre: "Hugo Hugartemendia",
+    texto: "Excelente como siempre!! Muy buena calidad de productos 💯.",
+    foto: "/fotos/maria.jpg",
+  },
+  {
+    nombre: "Hernan Wic",
+    texto: "Excelente atención y surtido, los mejores de la zona",
+    foto: "/fotos/maria.jpg",
+  },
 ];
 
 const Testimonios = () => {
   return (
-    <section className="py-20 bg-blue-50">
-      <div className="max-w-4xl mx-auto px-4 text-center">
-        <h3 className="text-3xl font-bold mb-10">Lo que dicen nuestros clientes</h3>
-        <div className="space-y-6">
+    <section className="py-20 bg-blue-50" aria-labelledby="testimonios-title">
+      <div className="max-w-7xl mx-auto px-4 text-center">
+        <h3 id="testimonios-title" className="text-3xl font-bold mb-10">
+          Lo que dicen nuestros clientes
+        </h3>
+        <Swiper
+          modules={[Autoplay, Pagination, Navigation]}
+          spaceBetween={30}
+          slidesPerView={1}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          navigation={true}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
           {testimonios.map((t, i) => (
-            <motion.div 
-              key={i} 
-              className="bg-white p-6 rounded-lg shadow-md"
-              initial={{ opacity: 0, y: 20 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              viewport={{ once: true }} 
-              transition={{ duration: 0.5, delay: i * 0.2 }}
-            >
-              <p className="italic">“{t.texto}”</p>
-              <p className="mt-2 font-bold">- {t.nombre}</p>
-            </motion.div>
+            <SwiperSlide key={i}>
+              <motion.div
+                className="bg-white p-8 rounded-2xl shadow-lg flex flex-col items-center text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 2 }}
+              >
+                {/* <img
+                  src={t.foto}
+                  alt={`Foto de ${t.nombre}`}
+                  className="w-20 h-20 rounded-full object-cover mb-4 border-4 border-blue-100 shadow"
+                /> */}
+                <div className="flex text-yellow-400 mb-2 justify-center">
+                  {[...Array(5)].map((_, index) => (
+                    <FaStar key={index} />
+                  ))}
+                </div>
+                <blockquote className="italic text-lg">“{t.texto}”</blockquote>
+                <cite className="mt-4 font-semibold not-italic text-blue-700">
+                  - {t.nombre}
+                </cite>
+              </motion.div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </section>
   );
