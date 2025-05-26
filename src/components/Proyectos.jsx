@@ -69,7 +69,10 @@ const Proyectos = () => {
           >
             {/* Botón cerrar (fuera de imagen) */}
             <button
-              onClick={closeModal}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeModal();
+              }}
               className="absolute top-6 right-6 text-white bg-black/60 hover:bg-black/80 p-2 rounded-full z-50"
             >
               <X size={24} />
@@ -77,7 +80,10 @@ const Proyectos = () => {
 
             {/* Flecha izquierda (fuera de imagen) */}
             <button
-              onClick={showPrev}
+              onClick={(e) => {
+                e.stopPropagation();
+                showPrev();
+              }}
               className="absolute left-20 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-50"
             >
               <ChevronLeft size={24} />
@@ -85,7 +91,10 @@ const Proyectos = () => {
 
             {/* Flecha derecha (fuera de imagen) */}
             <button
-              onClick={showNext}
+              onClick={(e) => {
+                e.stopPropagation();
+                showNext();
+              }}
               className="absolute right-20 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-50"
             >
               <ChevronRight size={24} />

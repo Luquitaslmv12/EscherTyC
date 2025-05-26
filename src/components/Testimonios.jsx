@@ -34,10 +34,13 @@ const testimonios = [
 
 const Testimonios = () => {
   return (
-    <section className="py-20 bg-blue-50" aria-labelledby="testimonios-title">
+    <section
+      className="py-20 bg-gradient-to-br from-white via-blue-50 to-blue-100"
+      aria-labelledby="testimonios-title"
+    >
       <div className="max-w-7xl mx-auto px-4 text-center">
         <h3 id="testimonios-title" className="text-3xl font-bold mb-10">
-          Lo que dicen nuestros clientes
+          Testimonios de nuestros Clientes
         </h3>
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
