@@ -101,7 +101,7 @@ export default function ContactForm() {
       "
       >
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-          Contáctame
+          Contacto
         </h2>
 
         <form ref={form} onSubmit={sendEmail} className="space-y-6">

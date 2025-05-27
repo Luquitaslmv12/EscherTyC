@@ -34,12 +34,13 @@ const testimonios = [
 
 const Testimonios = () => {
   return (
-    <section
-      className="py-20 bg-gradient-to-br from-white via-blue-50 to-blue-100"
+    <section 
+      className="py-20 "
       aria-labelledby="testimonios-title"
+      id="testimonios"
     >
       <div className="max-w-7xl mx-auto px-4 text-center">
-        <h3 id="testimonios-title" className="text-3xl font-bold mb-10">
+        <h3 id="testimonios-title" className="text-4xl font-bold mb-12">
           Testimonios de nuestros Clientes
         </h3>
         <Swiper

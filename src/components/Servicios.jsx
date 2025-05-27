@@ -13,7 +13,7 @@ const Servicios = () => {
   return (
     <section
       id="servicios"
-      className="py-20 bg-gradient-to-br from-white via-blue-50 to-blue-100"
+      className="py-20"
     >
       <div className="max-w-6xl mx-auto px-4">
         <h3 className="text-4xl font-bold text-center mb-12 text-gray-800">

@@ -6,17 +6,21 @@ import Proyectos from './components/Proyectos';
 import Contacto from './components/Contacto';
 import Footer from './components/Footer';
 import Testimonios from './components/Testimonios';
+import Presupuesto from './components/Presupuesto';
 
 const App = () => {
   return (
-    <div className="bg-white text-gray-800">
+    <div>
       <Navbar />
       <Banner />
+      <div className="bg-gradient-to-t from-sky-50 via-sky-600 to-sky-50 text-gray-800">
       <Servicios />
       <Proyectos />
       <Testimonios />
       <Contacto />
+      <Presupuesto/>
       <Footer />
+    </div>
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 w-full bg-gradient-to-r from-gray-400/80 to-gray-800/80 text-white shadow-lg z-50">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="max-w-auto mx-auto px-4 py-3 flex justify-between items-center">
         <h1 className="text-2xl font-bold tracking-wide">
           Cortinas y Toldos ESCHER
         </h1>
@@ -23,8 +23,16 @@ const Navbar = () => {
               Proyectos
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
             </a>
+            <a href="#testimonios" className="relative group">
+              Testimonios
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
+            </a>
             <a href="#contacto" className="relative group">
               Contacto
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="#presupuesto" className="relative group">
+              Presupuestos
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
             </a>
           </nav>
@@ -63,11 +71,25 @@ const Navbar = () => {
               Proyectos
             </a>
             <a
+              href="#testimonios"
+              className="hover:text-yellow-300 transition"
+              onClick={toggleMenu}
+            >
+              Testimonios
+            </a>
+            <a
               href="#contacto"
               className="hover:text-yellow-300 transition"
               onClick={toggleMenu}
             >
               Contacto
+            </a>
+            <a
+              href="#presupuestos"
+              className="hover:text-yellow-300 transition"
+              onClick={toggleMenu}
+            >
+              Presupuestos
             </a>
           </motion.div>
         )}
