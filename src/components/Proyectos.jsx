@@ -19,20 +19,24 @@ const variants = {
   enter: (direction) => ({
     x: direction > 0 ? 300 : -300,
     opacity: 0,
+    position: "absolute",
   }),
   center: {
     x: 0,
     opacity: 1,
+    position: "absolute",
   },
   exit: (direction) => ({
     x: direction < 0 ? 300 : -300,
     opacity: 0,
+    position: "absolute",
   }),
 };
 
 function useWindowWidth() {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(0);
   useEffect(() => {
+    setWidth(window.innerWidth);
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -42,24 +46,17 @@ function useWindowWidth() {
 
 const Proyectos = () => {
   const width = useWindowWidth();
-
   const total = proyectos.length;
 
-  // Cantidad visible según ancho
-  let VISIBLE_COUNT = 6;
-  if (width < 640) VISIBLE_COUNT = 1; // móvil
-  else if (width < 1024) VISIBLE_COUNT = 3; // tablet
-  else VISIBLE_COUNT = 6; // desktop
+  let VISIBLE_COUNT = 3;
+  if (width < 640) VISIBLE_COUNT = 1;
+  else if (width < 1024) VISIBLE_COUNT = 2;
 
-  // Estados
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [groupIndex, setGroupIndex] = useState(0);
   const [direction, setDirection] = useState(0);
-
-  // Cuando mostramos varias imágenes agrupadas (tablet y desktop)
   const totalGroups = Math.ceil(total / VISIBLE_COUNT);
 
-  // Obtiene las imágenes visibles según grupo
   const getVisibleImages = (group) => {
     const start = group * VISIBLE_COUNT;
     const images = [];
@@ -71,7 +68,6 @@ const Proyectos = () => {
     return images;
   };
 
-  // Para móvil, las imágenes visibles es solo la que corresponde a groupIndex
   const visibleImages =
     VISIBLE_COUNT === 1
       ? [{ src: proyectos[groupIndex], realIndex: groupIndex }]
@@ -94,12 +90,10 @@ const Proyectos = () => {
   };
 
   const closeModal = () => setSelectedIndex(null);
-
   const showPrev = () => {
     setDirection(-1);
     setSelectedIndex((prev) => (prev > 0 ? prev - 1 : total - 1));
   };
-
   const showNext = () => {
     setDirection(1);
     setSelectedIndex((prev) => (prev < total - 1 ? prev + 1 : 0));
@@ -115,7 +109,12 @@ const Proyectos = () => {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
   }, [selectedIndex]);
 
   return (
@@ -126,69 +125,39 @@ const Proyectos = () => {
         </h3>
 
         <div className="flex items-center justify-center mb-4 relative">
-          {/* Mostrar flechas solo si NO es móvil */}
           {VISIBLE_COUNT !== 1 && (
             <button
               onClick={prevGroup}
-              className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 z-10"
-              aria-label="Mostrar imágenes anteriores"
+              className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 z-10 m-5"
             >
               <ChevronLeft size={28} />
             </button>
           )}
 
-          <div
-            className={`overflow-hidden w-full max-w-6xl ${
-              VISIBLE_COUNT === 1 ? "touch-pan-x" : ""
-            }`}
-          >
-            <AnimatePresence initial={false} custom={direction}>
+          <div className="overflow-hidden w-full max-w-6xl relative min-h-[280px]">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={groupIndex + "-" + VISIBLE_COUNT}
-                className={`grid gap-6 ${
+                className={`absolute top-0 left-0 w-full grid gap-6 ${
                   VISIBLE_COUNT === 1
                     ? "grid-cols-1"
-                    : VISIBLE_COUNT === 3
-                    ? "grid-cols-3"
-                    : "grid-cols-6"
+                    : VISIBLE_COUNT === 2
+                    ? "grid-cols-2"
+                    : "grid-cols-3"
                 }`}
-                style={{
-                  display: "grid",
-                  gridAutoFlow: VISIBLE_COUNT === 1 ? "column" : "initial",
-                  gridAutoColumns: VISIBLE_COUNT === 1 ? "100%" : "auto",
-                }}
                 custom={direction}
                 variants={variants}
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ type: "tween", duration: 0.5 }}
-                drag={VISIBLE_COUNT === 1 ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={
-                  VISIBLE_COUNT === 1
-                    ? (e, { offset, velocity }) => {
-                        const swipe = offset.x * velocity.x;
-                        if (swipe > 100) {
-                          prevGroup();
-                        } else if (swipe < -100) {
-                          nextGroup();
-                        }
-                      }
-                    : undefined
-                }
+                transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
               >
                 {visibleImages.map(({ src, realIndex }) => (
                   <motion.img
                     key={realIndex}
                     src={src}
                     alt={`Proyecto ${realIndex + 1}`}
-                    className={`rounded-lg shadow-lg cursor-pointer ${
-                      VISIBLE_COUNT === 1
-                        ? "w-full h-auto max-h-[400px] object-contain"
-                        : "w-full h-64 object-cover"
-                    }`}
+                    className="rounded-lg shadow-lg cursor-pointer w-full h-64 object-cover"
                     loading="lazy"
                     whileHover={VISIBLE_COUNT === 1 ? {} : { scale: 1.03 }}
                     onClick={() => setSelectedIndex(realIndex)}
@@ -198,12 +167,10 @@ const Proyectos = () => {
             </AnimatePresence>
           </div>
 
-          {/* Mostrar flechas solo si NO es móvil */}
           {VISIBLE_COUNT !== 1 && (
             <button
               onClick={nextGroup}
-              className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 z-10"
-              aria-label="Mostrar imágenes siguientes"
+              className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 z-10 m-5"
             >
               <ChevronRight size={28} />
             </button>
@@ -218,7 +185,6 @@ const Proyectos = () => {
               className={`w-4 h-4 rounded-full ${
                 idx === groupIndex ? "bg-gray-800" : "bg-gray-300"
               }`}
-              aria-label={`Ir al grupo ${idx + 1}`}
             />
           ))}
         </div>
@@ -248,7 +214,7 @@ const Proyectos = () => {
                 e.stopPropagation();
                 showPrev();
               }}
-              className="absolute left-20 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-50"
+              className="absolute left-10 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-50"
             >
               <ChevronLeft size={24} />
             </button>
@@ -258,12 +224,12 @@ const Proyectos = () => {
                 e.stopPropagation();
                 showNext();
               }}
-              className="absolute right-20 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-50"
+              className="absolute right-10 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-50"
             >
               <ChevronRight size={24} />
             </button>
 
-            <div className="relative w-full max-w-7xl max-h-[90vh]">
+            <div className="relative w-full max-w-7xl max-h-[90vh] flex justify-center items-center">
               <AnimatePresence mode="wait" initial={false} custom={direction}>
                 <motion.img
                   key={selectedIndex}
@@ -281,7 +247,6 @@ const Proyectos = () => {
                   dragElastic={0.8}
                   onDragEnd={(e, { offset, velocity }) => {
                     const swipe = Math.abs(offset.x) * velocity.x;
-
                     if (swipe < -500) {
                       setDirection(1);
                       setSelectedIndex((prev) =>
@@ -297,7 +262,7 @@ const Proyectos = () => {
                 />
               </AnimatePresence>
 
-              <div className="absolute bottom-4 left-1/2 bg-black/60 text-white text-sm px-3 py-1 rounded-full select-none">
+              <div className="absolute top-[40vh] left-1/2 bg-black/60 text-white text-sm px-3 py-1 rounded-full select-none transform -translate-x-1/2">
                 Imagen {selectedIndex + 1} de {total}
               </div>
             </div>
