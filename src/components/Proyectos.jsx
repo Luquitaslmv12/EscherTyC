@@ -43,19 +43,23 @@ function useWindowWidth() {
 const Proyectos = () => {
   const width = useWindowWidth();
 
-  // Define cantidad visible según ancho
+  const total = proyectos.length;
+
+  // Cantidad visible según ancho
   let VISIBLE_COUNT = 6;
-  if (width < 640) VISIBLE_COUNT = 1; // móvil pequeño
+  if (width < 640) VISIBLE_COUNT = 1; // móvil
   else if (width < 1024) VISIBLE_COUNT = 3; // tablet
   else VISIBLE_COUNT = 6; // desktop
 
-  const total = proyectos.length;
-  const totalGroups = Math.ceil(total / VISIBLE_COUNT);
-
+  // Estados
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [groupIndex, setGroupIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
+  // Cuando mostramos varias imágenes agrupadas (tablet y desktop)
+  const totalGroups = Math.ceil(total / VISIBLE_COUNT);
+
+  // Obtiene las imágenes visibles según grupo
   const getVisibleImages = (group) => {
     const start = group * VISIBLE_COUNT;
     const images = [];
@@ -67,7 +71,11 @@ const Proyectos = () => {
     return images;
   };
 
-  const visibleImages = getVisibleImages(groupIndex);
+  // Para móvil, las imágenes visibles es solo la que corresponde a groupIndex
+  const visibleImages =
+    VISIBLE_COUNT === 1
+      ? [{ src: proyectos[groupIndex], realIndex: groupIndex }]
+      : getVisibleImages(groupIndex);
 
   const prevGroup = () => {
     setDirection(-1);
@@ -117,65 +125,89 @@ const Proyectos = () => {
           Algunos de nuestros trabajos
         </h3>
 
-        <div className="flex items-center justify-center mb-4 space-x-4 relative">
-          <button
-            onClick={prevGroup}
-            className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 z-10"
-            aria-label="Mostrar imágenes anteriores"
-          >
-            <ChevronLeft size={28} />
-          </button>
-
-          <div className="overflow-hidden w-full max-w-6xl">
-            <motion.div
-              key={groupIndex + "-" + VISIBLE_COUNT} // para reiniciar animación si cambia VISIBLE_COUNT
-              className={`grid gap-6 ${
-                VISIBLE_COUNT === 1
-                  ? "grid-cols-1"
-                  : VISIBLE_COUNT === 3
-                  ? "grid-cols-3"
-                  : "grid-cols-6"
-              }`}
-              style={{ display: "grid" }}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ type: "tween", duration: 0.5 }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={(e, { offset, velocity }) => {
-                const swipe = offset.x * velocity.x;
-                if (swipe > 100) {
-                  prevGroup();
-                } else if (swipe < -100) {
-                  nextGroup();
-                }
-              }}
+        <div className="flex items-center justify-center mb-4 relative">
+          {/* Mostrar flechas solo si NO es móvil */}
+          {VISIBLE_COUNT !== 1 && (
+            <button
+              onClick={prevGroup}
+              className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 z-10"
+              aria-label="Mostrar imágenes anteriores"
             >
-              {visibleImages.map(({ src, realIndex }) => (
-                <motion.img
-                  key={realIndex}
-                  src={src}
-                  alt={`Proyecto ${realIndex + 1}`}
-                  className="rounded-lg shadow-lg w-full h-64 object-cover cursor-pointer"
-                  loading="lazy"
-                  whileHover={{ scale: 1.03 }}
-                  onClick={() => setSelectedIndex(realIndex)}
-                />
-              ))}
-            </motion.div>
+              <ChevronLeft size={28} />
+            </button>
+          )}
+
+          <div
+            className={`overflow-hidden w-full max-w-6xl ${
+              VISIBLE_COUNT === 1 ? "touch-pan-x" : ""
+            }`}
+          >
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={groupIndex + "-" + VISIBLE_COUNT}
+                className={`grid gap-6 ${
+                  VISIBLE_COUNT === 1
+                    ? "grid-cols-1"
+                    : VISIBLE_COUNT === 3
+                    ? "grid-cols-3"
+                    : "grid-cols-6"
+                }`}
+                style={{
+                  display: "grid",
+                  gridAutoFlow: VISIBLE_COUNT === 1 ? "column" : "initial",
+                  gridAutoColumns: VISIBLE_COUNT === 1 ? "100%" : "auto",
+                }}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ type: "tween", duration: 0.5 }}
+                drag={VISIBLE_COUNT === 1 ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={
+                  VISIBLE_COUNT === 1
+                    ? (e, { offset, velocity }) => {
+                        const swipe = offset.x * velocity.x;
+                        if (swipe > 100) {
+                          prevGroup();
+                        } else if (swipe < -100) {
+                          nextGroup();
+                        }
+                      }
+                    : undefined
+                }
+              >
+                {visibleImages.map(({ src, realIndex }) => (
+                  <motion.img
+                    key={realIndex}
+                    src={src}
+                    alt={`Proyecto ${realIndex + 1}`}
+                    className={`rounded-lg shadow-lg cursor-pointer ${
+                      VISIBLE_COUNT === 1
+                        ? "w-full h-auto max-h-[400px] object-contain"
+                        : "w-full h-64 object-cover"
+                    }`}
+                    loading="lazy"
+                    whileHover={VISIBLE_COUNT === 1 ? {} : { scale: 1.03 }}
+                    onClick={() => setSelectedIndex(realIndex)}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          <button
-            onClick={nextGroup}
-            className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 z-10"
-            aria-label="Mostrar imágenes siguientes"
-          >
-            <ChevronRight size={28} />
-          </button>
+          {/* Mostrar flechas solo si NO es móvil */}
+          {VISIBLE_COUNT !== 1 && (
+            <button
+              onClick={nextGroup}
+              className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 z-10"
+              aria-label="Mostrar imágenes siguientes"
+            >
+              <ChevronRight size={28} />
+            </button>
+          )}
         </div>
 
         <div className="flex justify-center space-x-3">
