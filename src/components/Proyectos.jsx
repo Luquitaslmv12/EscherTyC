@@ -3,16 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const proyectos = [
+  "/ProyectosRecientes/1.jpg",
+  "/ProyectosRecientes/2.jpg",
   "/ProyectosRecientes/3.jpg",
   "/ProyectosRecientes/4.jpg",
   "/ProyectosRecientes/5.jpg",
+  "/ProyectosRecientes/6.jpg",
+  "/ProyectosRecientes/7.jpg",
   "/ProyectosRecientes/8.jpg",
+  "/ProyectosRecientes/9.jpg",
+  "/ProyectosRecientes/10.jpg",
+  "/ProyectosRecientes/11.jpg",
   "/ProyectosRecientes/12.jpg",
-  "/ProyectosRecientes/25.jpg",
-  "/ProyectosRecientes/26.jpg",
-  "/ProyectosRecientes/27.jpg",
-  "/ProyectosRecientes/28.jpg",
-  "/ProyectosRecientes/29.jpg",
+  
 ];
 
 const variants = {
@@ -134,38 +137,40 @@ const Proyectos = () => {
             </button>
           )}
 
-          <div className="overflow-hidden w-full max-w-6xl relative min-h-[280px]">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div
-                key={groupIndex + "-" + VISIBLE_COUNT}
-                className={`absolute top-0 left-0 w-full grid gap-6 ${
-                  VISIBLE_COUNT === 1
-                    ? "grid-cols-1"
-                    : VISIBLE_COUNT === 2
-                    ? "grid-cols-2"
-                    : "grid-cols-3"
-                }`}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-              >
-                {visibleImages.map(({ src, realIndex }) => (
-                  <motion.img
-                    key={realIndex}
-                    src={src}
-                    alt={`Proyecto ${realIndex + 1}`}
-                    className="rounded-lg shadow-lg cursor-pointer w-full h-64 object-cover"
-                    loading="lazy"
-                    whileHover={VISIBLE_COUNT === 1 ? {} : { scale: 1.03 }}
-                    onClick={() => setSelectedIndex(realIndex)}
-                  />
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+      
+<div className="overflow-hidden w-full max-w-3xl mx-auto relative min-h-[480px]">
+  <AnimatePresence initial={false} custom={direction} mode="wait">
+    <motion.div
+      key={groupIndex + "-" + VISIBLE_COUNT}
+      className={`absolute top-0 left-0 w-full grid gap-6 place-items-center ${
+        VISIBLE_COUNT === 1
+          ? "grid-cols-1"
+          : VISIBLE_COUNT === 2
+          ? "grid-cols-2 justify-center"
+          : "grid-cols-3 justify-center"
+      }`}
+      style={{ minHeight: "480px" }}
+      custom={direction}
+      variants={variants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+    >
+      {visibleImages.map(({ src, realIndex }) => (
+        <motion.img
+          key={realIndex}
+          src={src}
+          alt={`Proyecto ${realIndex + 1}`}
+          className="rounded-lg shadow-lg cursor-pointer max-w-full max-h-[400px] object-contain"
+          loading="lazy"
+          whileHover={VISIBLE_COUNT === 1 ? {} : { scale: 1.03 }}
+          onClick={() => setSelectedIndex(realIndex)}
+        />
+      ))}
+    </motion.div>
+  </AnimatePresence>
+</div>
 
           {VISIBLE_COUNT !== 1 && (
             <button
@@ -183,7 +188,7 @@ const Proyectos = () => {
               key={idx}
               onClick={() => goToGroup(idx)}
               className={`w-4 h-4 rounded-full ${
-                idx === groupIndex ? "bg-gray-800" : "bg-gray-300"
+                idx === groupIndex ? "bg-blue-700" : "bg-gray-300"
               }`}
             />
           ))}
@@ -229,7 +234,7 @@ const Proyectos = () => {
               <ChevronRight size={24} />
             </button>
 
-            <div className="relative w-full max-w-7xl max-h-[90vh] flex justify-center items-center">
+            <div className="relative w-full max-h-[90vh] flex justify-center items-center">
               <AnimatePresence mode="wait" initial={false} custom={direction}>
                 <motion.img
                   key={selectedIndex}

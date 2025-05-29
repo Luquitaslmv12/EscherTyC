@@ -9,24 +9,24 @@ import "swiper/css/navigation";
 
 const testimonios = [
   {
-    nombre: "Mebu Viollaz.",
+    nombre: "M Viollaz.",
     texto:
       "Excelente atención, variedad de productos de calidad a buen precio.",
     foto: "/fotos/maria.jpg",
   },
   {
-    nombre: "Pato Nauschuetz.",
+    nombre: "P Nauschuetz.",
     texto:
       "Buena atención. Solucionaron lo que necesitaba. Productos excelentes.",
     foto: "/fotos/maria.jpg",
   },
   {
-    nombre: "Hugo Hugartemendia",
+    nombre: "H Hugartemendia",
     texto: "Excelente como siempre!! Muy buena calidad de productos 💯.",
     foto: "/fotos/maria.jpg",
   },
   {
-    nombre: "Hernan Wic",
+    nombre: "H Wic",
     texto: "Excelente atención y surtido, los mejores de la zona",
     foto: "/fotos/maria.jpg",
   },

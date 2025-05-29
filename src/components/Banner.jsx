@@ -62,7 +62,7 @@ const Banner = () => {
         </p>
 
         <motion.a
-          href="#contacto"
+          href="#presupuesto"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           className="inline-block bg-blue-600/70 hover:bg-blue-700 transition px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-xl"

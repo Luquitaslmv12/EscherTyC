@@ -5,7 +5,7 @@ import { Mail, User, Ruler, Phone } from "lucide-react";
 
 const Presupuesto = () => {
   const form = useRef();
-  const messageInputRef = useRef(); // ✅ MOVER AQUÍ
+  const messageInputRef = useRef();
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -63,153 +63,160 @@ const Presupuesto = () => {
 
   return (
     <section id="presupuesto" className="py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="
-          max-w-2xl mx-auto p-6
-          bg-gradient-to-b from-sky-100 to-white
-          rounded-2xl shadow-lg
-          transition-shadow transform duration-300
-          hover:shadow-2xl my-10 w-full
-        "
-      >
-        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
           Solicitar Presupuesto
         </h2>
 
-        <form ref={form} onSubmit={sendEmail} className="space-y-6">
-          {/* Nombre */}
-          <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-            <User className="text-gray-500 w-5 h-5" />
-            <input
-              type="text"
-              name="from_name"
-              placeholder="Nombre"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="flex-1 outline-none bg-transparent"
-            />
-          </div>
-
-          {/* Telefono */}
-          <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-            <Phone className="text-gray-500 w-5 h-5" />
-            <input
-              type="number"
-              name="telefono"
-              placeholder="Telefono"
-              required
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
-              className="flex-1 outline-none bg-transparent"
-            />
-          </div>
-
-          {/* Email */}
-          <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-            <Mail className="text-gray-500 w-5 h-5" />
-            <input
-              type="email"
-              name="reply_to"
-              placeholder="Correo Electrónico"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 outline-none bg-transparent"
-            />
-          </div>
-
-          {/* Alto */}
-          <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-            <Ruler className="text-gray-500 w-5 h-5" />
-            <input
-              type="number"
-              placeholder="Alto (cm)"
-              required
-              value={alto}
-              onChange={(e) => setAlto(e.target.value)}
-              className="flex-1 outline-none bg-transparent"
-            />
-          </div>
-
-          {/* Ancho */}
-          <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-            <Ruler className="text-gray-500 w-5 h-5" />
-            <input
-              type="number"
-              placeholder="Ancho (cm)"
-              required
-              value={ancho}
-              onChange={(e) => setAncho(e.target.value)}
-              className="flex-1 outline-none bg-transparent"
-            />
-          </div>
-
-          {/* Tipo */}
-          <div className="border rounded-xl px-4 py-3">
-            <label className="block text-sm font-semibold mb-2">Tipo</label>
-            <div className="flex gap-6">
-              <label className="flex items-center gap-2">
+        <div className="flex flex-col lg:flex-row gap-8 items-center">
+          {/* FORMULARIO */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full lg:w-1/2 bg-gradient-to-b from-sky-100 to-white rounded-2xl shadow-lg p-6"
+          >
+            <form ref={form} onSubmit={sendEmail} className="space-y-6">
+              <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
+                <User className="text-gray-500 w-5 h-5" />
                 <input
-                  type="radio"
-                  name="tipo"
-                  value="Cortina"
-                  checked={tipo === "Cortina"}
-                  onChange={() => setTipo("Cortina")}
+                  type="text"
+                  name="from_name"
+                  placeholder="Nombre"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="flex-1 outline-none bg-transparent"
                 />
-                Cortina
-              </label>
-              <label className="flex items-center gap-2">
+              </div>
+
+              <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
+                <Phone className="text-gray-500 w-5 h-5" />
                 <input
-                  type="radio"
-                  name="tipo"
-                  value="Toldo"
-                  checked={tipo === "Toldo"}
-                  onChange={() => setTipo("Toldo")}
+                  type="number"
+                  name="telefono"
+                  placeholder="Teléfono"
+                  required
+                  value={telefono}
+                  onChange={(e) => setTelefono(e.target.value)}
+                  className="flex-1 outline-none bg-transparent"
                 />
-                Toldo
-              </label>
-            </div>
-          </div>
+              </div>
 
-          {/* Campo oculto con el mensaje */}
-          <input type="hidden" name="message" ref={messageInputRef} />
+              <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
+                <Mail className="text-gray-500 w-5 h-5" />
+                <input
+                  type="email"
+                  name="reply_to"
+                  placeholder="Correo Electrónico"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 outline-none bg-transparent"
+                />
+              </div>
 
-          {/* Botón */}
-          <motion.div whileHover={{ scale: 1.05 }} className="text-center">
-            <button
-              type="submit"
-              disabled={loading || sent}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-xl transition duration-200 disabled:opacity-60"
-            >
-              {loading ? "Enviando..." : "Enviar Presupuesto"}
-            </button>
+              <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
+                <Ruler className="text-gray-500 w-5 h-5" />
+                <input
+                  type="number"
+                  placeholder="Alto (cm)"
+                  required
+                  value={alto}
+                  onChange={(e) => setAlto(e.target.value)}
+                  className="flex-1 outline-none bg-transparent"
+                />
+              </div>
+
+              <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
+                <Ruler className="text-gray-500 w-5 h-5" />
+                <input
+                  type="number"
+                  placeholder="Ancho (cm)"
+                  required
+                  value={ancho}
+                  onChange={(e) => setAncho(e.target.value)}
+                  className="flex-1 outline-none bg-transparent"
+                />
+              </div>
+
+              <div className="border rounded-xl px-4 py-3">
+                <label className="block text-sm font-semibold mb-2">Tipo</label>
+                <div className="flex gap-6">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="tipo"
+                      value="Cortina"
+                      checked={tipo === "Cortina"}
+                      onChange={() => setTipo("Cortina")}
+                    />
+                    Cortina
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="tipo"
+                      value="Toldo"
+                      checked={tipo === "Toldo"}
+                      onChange={() => setTipo("Toldo")}
+                    />
+                    Toldo
+                  </label>
+                </div>
+              </div>
+
+              <input type="hidden" name="message" ref={messageInputRef} />
+
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center">
+                <button
+                  type="submit"
+                  disabled={loading || sent}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-xl transition duration-200 disabled:opacity-60"
+                >
+                  {loading ? "Enviando..." : "Enviar Presupuesto"}
+                </button>
+              </motion.div>
+
+              {sent && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-green-600 text-center font-medium mt-4"
+                >
+                  ¡Presupuesto enviado con éxito!
+                </motion.p>
+              )}
+              {error && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-red-600 text-center font-medium mt-4"
+                >
+                  {error}
+                </motion.p>
+              )}
+            </form>
           </motion.div>
 
-          {/* Mensajes */}
-          {sent && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-green-600 text-center font-medium mt-4"
-            >
-              ¡Presupuesto enviado con éxito!
-            </motion.p>
-          )}
-          {error && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-red-600 text-center font-medium mt-4"
-            >
-              {error}
-            </motion.p>
-          )}
-        </form>
-      </motion.div>
+          {/* IMAGEN + TEXTO */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full lg:w-1/2 flex flex-col items-center"
+          >
+            <p className="text-2xl font-bold text-center mb-12 text-gray-800">
+              Cómo medir tu ventana!
+            </p>
+            <img
+              src="/fotos/ventana.jpeg"
+              alt="Ejemplo de instalación"
+              className="max-w-full max-h-[480px] object-contain rounded-xl shadow-md"
+            />
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 };
