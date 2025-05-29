@@ -6,6 +6,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  
 
   return (
     <nav className="fixed top-0 w-full bg-gradient-to-r from-gray-400/80 to-gray-800/80 text-white shadow-lg z-50">
@@ -92,9 +93,13 @@ const Navbar = () => {
               Presupuestos
             </a>
           </motion.div>
+          
         )}
+        
       </AnimatePresence>
+      
     </nav>
+    
   );
 };
 

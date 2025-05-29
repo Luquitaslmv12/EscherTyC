@@ -19,7 +19,7 @@ const Banner = () => {
         y: (e.clientY - window.innerHeight / 2) / 50,
       });
     });
-  }, []);
+  }, []); 
 
   return (
     <section
@@ -67,7 +67,7 @@ const Banner = () => {
           whileTap={{ scale: 0.95 }}
           className="inline-block bg-blue-600/70 hover:bg-blue-700 transition px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-xl"
         >
-          ¡Contactanos!
+        ¡Solucitá Presupuesto!
         </motion.a>
       </motion.div>
 
