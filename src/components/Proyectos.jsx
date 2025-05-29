@@ -13,12 +13,7 @@ const proyectos = [
   "/ProyectosRecientes/27.jpg",
   "/ProyectosRecientes/28.jpg",
   "/ProyectosRecientes/29.jpg",
-  // más imágenes si querés...
 ];
-
-const VISIBLE_COUNT = 6;
-const total = proyectos.length;
-const totalGroups = Math.ceil(total / VISIBLE_COUNT);
 
 const variants = {
   enter: (direction) => ({
@@ -35,12 +30,32 @@ const variants = {
   }),
 };
 
+function useWindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return width;
+}
+
 const Proyectos = () => {
+  const width = useWindowWidth();
+
+  // Define cantidad visible según ancho
+  let VISIBLE_COUNT = 6;
+  if (width < 640) VISIBLE_COUNT = 1; // móvil pequeño
+  else if (width < 1024) VISIBLE_COUNT = 3; // tablet
+  else VISIBLE_COUNT = 6; // desktop
+
+  const total = proyectos.length;
+  const totalGroups = Math.ceil(total / VISIBLE_COUNT);
+
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [groupIndex, setGroupIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  // Calcula los proyectos visibles según grupo actual
   const getVisibleImages = (group) => {
     const start = group * VISIBLE_COUNT;
     const images = [];
@@ -102,7 +117,6 @@ const Proyectos = () => {
           Algunos de nuestros trabajos
         </h3>
 
-        {/* Flechas y carrusel */}
         <div className="flex items-center justify-center mb-4 space-x-4 relative">
           <button
             onClick={prevGroup}
@@ -114,8 +128,14 @@ const Proyectos = () => {
 
           <div className="overflow-hidden w-full max-w-6xl">
             <motion.div
-              key={groupIndex}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              key={groupIndex + "-" + VISIBLE_COUNT} // para reiniciar animación si cambia VISIBLE_COUNT
+              className={`grid gap-6 ${
+                VISIBLE_COUNT === 1
+                  ? "grid-cols-1"
+                  : VISIBLE_COUNT === 3
+                  ? "grid-cols-3"
+                  : "grid-cols-6"
+              }`}
               style={{ display: "grid" }}
               custom={direction}
               variants={variants}
@@ -158,7 +178,6 @@ const Proyectos = () => {
           </button>
         </div>
 
-        {/* Dots / puntos */}
         <div className="flex justify-center space-x-3">
           {Array.from({ length: totalGroups }).map((_, idx) => (
             <button
@@ -173,7 +192,6 @@ const Proyectos = () => {
         </div>
       </div>
 
-      {/* Modal */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div
@@ -213,7 +231,6 @@ const Proyectos = () => {
               <ChevronRight size={24} />
             </button>
 
-            {/* Contenedor relativo para imagen y contador */}
             <div className="relative w-full max-w-7xl max-h-[90vh]">
               <AnimatePresence mode="wait" initial={false} custom={direction}>
                 <motion.img
@@ -248,7 +265,6 @@ const Proyectos = () => {
                 />
               </AnimatePresence>
 
-              {/* Contador sobre la imagen */}
               <div className="absolute bottom-4 left-1/2 bg-black/60 text-white text-sm px-3 py-1 rounded-full select-none">
                 Imagen {selectedIndex + 1} de {total}
               </div>
