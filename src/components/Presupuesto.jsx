@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
-import { Mail, User, Ruler, Phone } from "lucide-react";
+import { Mail, User, Ruler, Phone, MessageCircle } from "lucide-react";
 
 const Presupuesto = () => {
   const form = useRef();
@@ -64,7 +64,7 @@ const Presupuesto = () => {
   return (
     <section id="presupuesto" className="py-20">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
           Solicitar Presupuesto
         </h2>
 
@@ -74,11 +74,11 @@ const Presupuesto = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="w-full lg:w-1/2 bg-gradient-to-b from-sky-100 to-white rounded-2xl shadow-lg p-6"
+            className="w-full lg:w-1/2 bg-white rounded-2xl shadow-lg p-6"
           >
             <form ref={form} onSubmit={sendEmail} className="space-y-6">
               <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-                <User className="text-gray-500 w-5 h-5" />
+                <User className="text-blue-700 w-5 h-5" />
                 <input
                   type="text"
                   name="from_name"
@@ -91,7 +91,7 @@ const Presupuesto = () => {
               </div>
 
               <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-                <Phone className="text-gray-500 w-5 h-5" />
+                <Phone className="text-gray-900 w-5 h-5" />
                 <input
                   type="number"
                   name="telefono"
@@ -104,7 +104,7 @@ const Presupuesto = () => {
               </div>
 
               <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-                <Mail className="text-gray-500 w-5 h-5" />
+                <Mail className="text-red-400 w-5 h-5" />
                 <input
                   type="email"
                   name="reply_to"
@@ -117,10 +117,10 @@ const Presupuesto = () => {
               </div>
 
               <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-                <Ruler className="text-gray-500 w-5 h-5" />
+                <Ruler className="text-yellow-500 w-5 h-5" />
                 <input
                   type="number"
-                  placeholder="Alto (cm)"
+                  placeholder="Alto de la ventana (cm)"
                   required
                   value={alto}
                   onChange={(e) => setAlto(e.target.value)}
@@ -129,10 +129,10 @@ const Presupuesto = () => {
               </div>
 
               <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
-                <Ruler className="text-gray-500 w-5 h-5" />
+                <Ruler className="text-yellow-500 w-5 h-5" />
                 <input
                   type="number"
-                  placeholder="Ancho (cm)"
+                  placeholder="Ancho de la ventana (cm)"
                   required
                   value={ancho}
                   onChange={(e) => setAncho(e.target.value)}
