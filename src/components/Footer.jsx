@@ -2,7 +2,6 @@ import React from "react";
 import {
   FaFacebookF,
   FaInstagram,
-  FaTwitter,
   FaWhatsapp,
   FaEnvelope,
   FaPhone,
@@ -77,7 +76,7 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-6">Redes Sociales</h3>
           <div className="flex space-x-6 mb-30">
             <a
-              href="https://facebook.com/eschercortinas"
+              href="https://facebook.com/EscherCortinasyToldos"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -86,22 +85,13 @@ const Footer = () => {
               <FaFacebookF size={28} />
             </a>
             <a
-              href="https://instagram.com/eschercortinas"
+              href="https://www.instagram.com/escher_cortinas_y_toldos"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
               className="text-pink-500 hover:text-pink-800 transition-colors duration-300"
             >
               <FaInstagram size={28} />
-            </a>
-            <a
-              href="https://twitter.com/eschercortinas"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Twitter"
-              className="text-blue-400 hover:text-blue-600 transition-colors duration-300"
-            >
-              <FaTwitter size={28} />
             </a>
           </div>
           <p className="mt-4 text-xs md:text-sm text-gray-400">
