@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 
 export default function WhatsAppButton() {
-  const phoneNumber = "549112345678";
-  const defaultMessage = "Hola, quiero hacer una consulta sobre cortinas.";
+  const phoneNumber = "5493447413069";
+  const defaultMessage = "Hola, quiero hacer una consulta.";
 
   const getWhatsAppLink = () => {
     const isMobile = /iPhone|Android|iPad|iPod|Android/i.test(navigator.userAgent);

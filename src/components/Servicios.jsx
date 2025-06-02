@@ -47,7 +47,7 @@ const Servicios = () => {
                 loading="lazy"
                 src={servicio.img}
                 alt={`Imagen de ${servicio.titulo}`}
-                className="w-full h-100 object-cover transform transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-[300px] md:h-[400px] object-cover transform transition-transform duration-500 group-hover:scale-110"
               />
 
               {/* Título encima */}
