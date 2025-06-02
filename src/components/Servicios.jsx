@@ -2,12 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Home, Scissors, Wrench, Lightbulb, Eye } from "lucide-react";
 
-const servicios = [
+/* const servicios = [
   { icon: <Scissors size={40} />, titulo: "Confección a medida" },
   { icon: <Wrench size={40} />, titulo: "Instalación profesional" },
   { icon: <Home size={40} />, titulo: "Asesoramiento personalizado" },
   { icon: <Lightbulb size={40} />, titulo: "Diseños personalizados" },
-];
+]; */
 
 const serviciosConImagen = [
   {
@@ -72,7 +72,7 @@ const Servicios = () => {
               </div>
 
               {/* Tipos visibles SIEMPRE */}
-              <div className="absolute bottom-0 left-0 right-0 bg-black/10 backdrop-blur-md rounded-b-2xl p-3 shadow-lg z-20">
+              {/* <div className="absolute bottom-0 left-0 right-0 bg-black/10 backdrop-blur-md rounded-b-2xl p-3 shadow-lg z-20">
                 <p className="text-m font-semibold text-white mb-2 text-center">Modelos más comercializados</p>
                 <ul className="grid grid-cols-2 gap-2 text-s text-white text-center">
                   {servicio.tipos.map((tipo, i) => (
@@ -81,13 +81,13 @@ const Servicios = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
             </motion.div>
           ))}
         </div>
 
         {/* Servicios con íconos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {servicios.map((servicio, index) => (
             <motion.div
               key={index}
@@ -107,8 +107,8 @@ const Servicios = () => {
               </h4>
             </motion.div>
           ))}
-        </div>
-      </div>
+        </div>*/}
+      </div> 
     </section>
   );
 };

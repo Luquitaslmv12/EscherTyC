@@ -23,10 +23,9 @@ const Footer = () => {
               aria-hidden="true"
             />
             <a
-              href="mailto:contacto@eschercortinas.com"
               className="hover:underline focus:underline focus:outline-none"
             >
-              contacto@eschercortinas.com
+              eschercortinasytoldos@gmail.com
             </a>
           </div>
           <div className="flex items-center justify-center md:justify-start space-x-2">
@@ -35,7 +34,7 @@ const Footer = () => {
               href="tel:+5403447422222"
               className="hover:underline focus:underline focus:outline-none"
             >
-              +54 3447413069
+              +54 03447-421309
             </a>
           </div>
           <div className="flex items-center justify-center md:justify-start space-x-2">
@@ -52,7 +51,7 @@ const Footer = () => {
               size={18}
               aria-hidden="true"
             />
-            <a>+54 11 1234 5678</a>
+            <a>+54 3447413069</a>
           </div>
         </div>
 

@@ -15,6 +15,12 @@ const testimonios = [
     foto: "/fotos/maria.jpg",
   },
   {
+    nombre: "A Biancardi.",
+    texto:
+      "Muy lindas cortinas. Muy buena atencion.",
+    foto: "/fotos/maria.jpg",
+  },
+  {
     nombre: "P Nauschuetz.",
     texto:
       "Buena atención. Solucionaron lo que necesitaba. Productos excelentes.",

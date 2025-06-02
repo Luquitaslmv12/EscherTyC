@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import emailjs from "emailjs-com";
-import { motion } from "framer-motion";
-import { Mail, User, Ruler, Phone, MessageCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, User, Ruler, Phone } from "lucide-react";
 
 const Presupuesto = () => {
   const form = useRef();
@@ -16,13 +16,18 @@ const Presupuesto = () => {
   const [alto, setAlto] = useState("");
   const [ancho, setAncho] = useState("");
   const [tipo, setTipo] = useState("");
+  const [subtipo, setSubtipo] = useState("");
+  const [comentario, setComentario] = useState("");
+
+  const opcionesCortinas = ["Roller", "Eclipse", "Venecianas", "Bandas Verticales", "Cortinados de confeccion (con sistema rieleuropeo / barrales de hierro)", "- Paneles orientales"];
+  const opcionesToldos = ["Punto recto", "Brazo invisible", "- Dos aguas (brazo invisible doble, común de restaurantes)", "- Vertical (con lona cristal, cobertura, o microperforada)"];
 
   const sendEmail = (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    const message = `Presupuesto: (Alto: ${alto} cm, Ancho: ${ancho} cm, Tipo: ${tipo}) - Contacto: ${telefono}`;
+    const message = `Presupuesto: (Alto: ${alto} cm, Ancho: ${ancho} cm, Tipo: ${tipo} - ${subtipo}) - Contacto: ${telefono}${comentario ? ` - Comentarios: ${comentario}` : ""}`;
     if (messageInputRef.current) {
       messageInputRef.current.value = message;
     }
@@ -44,6 +49,8 @@ const Presupuesto = () => {
           setAlto("");
           setAncho("");
           setTipo("");
+          setSubtipo("");
+          setComentario("");
           form.current.reset();
         },
         (error) => {
@@ -149,7 +156,10 @@ const Presupuesto = () => {
                       name="tipo"
                       value="Cortina"
                       checked={tipo === "Cortina"}
-                      onChange={() => setTipo("Cortina")}
+                      onChange={() => {
+                        setTipo("Cortina");
+                        setSubtipo("");
+                      }}
                     />
                     Cortina
                   </label>
@@ -159,12 +169,67 @@ const Presupuesto = () => {
                       name="tipo"
                       value="Toldo"
                       checked={tipo === "Toldo"}
-                      onChange={() => setTipo("Toldo")}
+                      onChange={() => {
+                        setTipo("Toldo");
+                        setSubtipo("");
+                      }}
                     />
                     Toldo
                   </label>
                 </div>
               </div>
+
+              {/* SELECT animado con Framer Motion */}
+              <AnimatePresence>
+                {tipo && (
+                  <motion.div
+                    key="select-subtipo"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="border rounded-xl px-4 py-3 overflow-hidden"
+                  >
+                    <label className="block text-sm font-semibold mb-2">
+                      {tipo === "Cortina" ? "Tipo de cortina" : "Tipo de toldo"}
+                    </label>
+                    <select
+                      name="subtipo"
+                      value={subtipo}
+                      onChange={(e) => setSubtipo(e.target.value)}
+                      className="w-full outline-none bg-transparent"
+                      required
+                    >
+                      <option value="">Selecciona una opción</option>
+                      {(tipo === "Cortina" ? opcionesCortinas : opcionesToldos).map((op, idx) => (
+                        <option key={idx} value={op}>
+                          {op}
+                        </option>
+                      ))}
+                    </select>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Campo de comentarios */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="border rounded-xl px-4 py-3"
+              >
+                <label className="block text-sm font-semibold mb-2">
+                  Comentarios adicionales (opcional)
+                </label>
+                <textarea
+                  name="comentario"
+                  rows="3"
+                  value={comentario}
+                  onChange={(e) => setComentario(e.target.value)}
+                  placeholder="Comentarios..."
+                  className="w-full outline-none bg-transparent resize-none"
+                />
+              </motion.div>
 
               <input type="hidden" name="message" ref={messageInputRef} />
 
@@ -210,7 +275,7 @@ const Presupuesto = () => {
               Cómo medir tu ventana!
             </p>
             <img
-              src="/fotos/ventana.jpeg"
+              src="/fotos/ventana2.jpeg"
               alt="Ejemplo de instalación"
               className="max-w-full max-h-[480px] object-contain rounded-xl shadow-md"
             />

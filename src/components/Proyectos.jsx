@@ -15,7 +15,6 @@ const proyectos = [
   "/ProyectosRecientes/10.jpg",
   "/ProyectosRecientes/11.jpg",
   "/ProyectosRecientes/12.jpg",
-  
 ];
 
 const variants = {
@@ -137,40 +136,48 @@ const Proyectos = () => {
             </button>
           )}
 
-      
-<div className="overflow-hidden w-full max-w-3xl mx-auto relative min-h-[480px]">
-  <AnimatePresence initial={false} custom={direction} mode="wait">
-    <motion.div
-      key={groupIndex + "-" + VISIBLE_COUNT}
-      className={`absolute top-0 left-0 w-full grid gap-6 place-items-center ${
-        VISIBLE_COUNT === 1
-          ? "grid-cols-1"
-          : VISIBLE_COUNT === 2
-          ? "grid-cols-2 justify-center"
-          : "grid-cols-3 justify-center"
-      }`}
-      style={{ minHeight: "480px" }}
-      custom={direction}
-      variants={variants}
-      initial="enter"
-      animate="center"
-      exit="exit"
-      transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-    >
-      {visibleImages.map(({ src, realIndex }) => (
-        <motion.img
-          key={realIndex}
-          src={src}
-          alt={`Proyecto ${realIndex + 1}`}
-          className="rounded-lg shadow-lg cursor-pointer max-w-full max-h-[400px] object-contain"
-          loading="lazy"
-          whileHover={VISIBLE_COUNT === 1 ? {} : { scale: 1.03 }}
-          onClick={() => setSelectedIndex(realIndex)}
-        />
-      ))}
-    </motion.div>
-  </AnimatePresence>
-</div>
+          <div className="overflow-hidden w-full max-w-3xl mx-auto relative min-h-[480px]">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.div
+                key={groupIndex + "-" + VISIBLE_COUNT}
+                className={`absolute top-0 left-0 w-full grid gap-6 place-items-center ${
+                  VISIBLE_COUNT === 1
+                    ? "grid-cols-1"
+                    : VISIBLE_COUNT === 2
+                    ? "grid-cols-2 justify-center"
+                    : "grid-cols-3 justify-center"
+                }`}
+                style={{ minHeight: "480px" }}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+                drag={VISIBLE_COUNT === 1 ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.5}
+                onDragEnd={(e, { offset, velocity }) => {
+                  if (VISIBLE_COUNT !== 1) return;
+                  const swipe = Math.abs(offset.x) * velocity.x;
+                  if (swipe < -500) nextGroup();
+                  else if (swipe > 500) prevGroup();
+                }}
+              >
+                {visibleImages.map(({ src, realIndex }) => (
+                  <motion.img
+                    key={realIndex}
+                    src={src}
+                    alt={`Proyecto ${realIndex + 1}`}
+                    className="rounded-lg shadow-lg cursor-pointer max-w-full max-h-[400px] object-contain"
+                    loading="lazy"
+                    whileHover={VISIBLE_COUNT === 1 ? {} : { scale: 1.03 }}
+                    onClick={() => setSelectedIndex(realIndex)}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           {VISIBLE_COUNT !== 1 && (
             <button
@@ -195,6 +202,7 @@ const Proyectos = () => {
         </div>
       </div>
 
+      {/* Modal de imagen ampliada */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div

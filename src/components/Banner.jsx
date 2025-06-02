@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react'; // Asegurate de tener instalada la librería lucide-react
+import WhatsAppButton from "./WhatsAppButton";
 
 const Banner = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -86,7 +87,9 @@ const Banner = () => {
       >
         <ChevronDown size={36} className="opacity-80 hover:opacity-100 transition" />
       </motion.a>
+      <WhatsAppButton />
     </section>
+    
   );
 };
 
