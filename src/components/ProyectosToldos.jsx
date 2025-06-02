@@ -3,11 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const proyectos = [
-  "/ProyectosRecientes/1.jpg",
-  "/ProyectosRecientes/2.jpg",
-  "/ProyectosRecientes/5.jpg",
-  "/ProyectosRecientes/6.jpg",
-  "/ProyectosRecientes/7.jpg",
+  "/ProyectosRecientes/3.jpg",
+  "/ProyectosRecientes/4.jpg",
+  "/ProyectosRecientes/8.jpg",
+  "/ProyectosRecientes/9.jpg",
+  "/ProyectosRecientes/10.jpg",
+  "/ProyectosRecientes/11.jpg",
+  "/ProyectosRecientes/12.jpg",
 ];
 
 const variants = {
@@ -39,7 +41,7 @@ function useWindowWidth() {
   return width;
 }
 
-const Proyectos = () => {
+const ProyectosToldos = () => {
   const width = useWindowWidth();
   const total = proyectos.length;
 
@@ -113,10 +115,10 @@ const Proyectos = () => {
   }, [selectedIndex]);
 
   return (
-    <section id="proyectos" className="py-20">
+    <section id="proyectostoldos" className="py-20">
       <div className="max-w-6xl mx-auto px-4">
         <h3 className="text-4xl font-bold text-center mb-12">
-          CORTINAS
+          TOLDOS
         </h3>
 
         <div className="flex items-center justify-center mb-4 relative">
@@ -279,4 +281,4 @@ const Proyectos = () => {
   );
 };
 
-export default Proyectos;
+export default ProyectosToldos;

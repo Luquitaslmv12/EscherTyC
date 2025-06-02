@@ -11,17 +11,20 @@ import { Home, Scissors, Wrench, Lightbulb, Eye } from "lucide-react";
 
 const serviciosConImagen = [
   {
-    img: "/fotos/10.jpg",
-    titulo: "Toldos",
-    descripcion: "Protección solar con estilo",
-    tipos: ["Brazo invisible", "Punto recto", "Dos Aguas", "Vertical"]
-  },
-  {
     img: "/fotos/5.jpg",
     titulo: "Cortinas",
     descripcion: "Ambientes modernos",
-    tipos: ["Roller", "Eclipce", "Venecianas", "Bandas Verticales"]
+    tipos: ["Roller", "Eclipce", "Venecianas", "Bandas Verticales"],
+     destino: "proyectos"
   },
+  {
+    img: "/fotos/10.jpg",
+    titulo: "Toldos",
+    descripcion: "Protección solar con estilo",
+    tipos: ["Brazo invisible", "Punto recto", "Dos Aguas", "Vertical"],
+    destino: "proyectostoldos"
+  },
+  
 ];
 
 const Servicios = () => {
@@ -63,7 +66,7 @@ const Servicios = () => {
                 <p className="text-white text-sm">{servicio.descripcion}</p>
                 <button
                   onClick={() =>
-                    document.getElementById("proyectos")?.scrollIntoView({ behavior: "smooth" })
+                     document.getElementById(servicio.destino)?.scrollIntoView({ behavior: "smooth" })
                   }
                   className="bg-white text-gray-800 font-medium px-5 py-2 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300 shadow"
                 >
