@@ -36,7 +36,7 @@ const Banner = () => {
         aria-hidden="true"
         className="absolute top-0 left-0 w-full h-full object-cover"
       >
-        <source src="/videos/video4.mp4" type="video/mp4" />
+        <source src="/videos/banner.mp4" type="video/mp4" />
         Tu navegador no soporta el video.
       </video>
 
