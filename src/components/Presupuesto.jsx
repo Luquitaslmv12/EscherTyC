@@ -19,7 +19,7 @@ const Presupuesto = () => {
   const [subtipo, setSubtipo] = useState("");
   const [comentario, setComentario] = useState("");
 
-  const opcionesCortinas = ["Roller", "Eclipse", "Venecianas", "Bandas Verticales", "Cortinados de confeccion (con sistema rieleuropeo / barrales de hierro)", "- Paneles orientales"];
+  const opcionesCortinas = ["- Roller", "- Eclipse", "- Venecianas", "- Bandas Verticales", "- Cortinados de confeccion (con sistema rieleuropeo / barrales de hierro)", "- Paneles orientales"];
   const opcionesToldos = ["- Punto recto", "- Brazo invisible", "- Dos aguas", "- Vertical (con lona cristal, cobertura, o microperforada)"];
 
   const sendEmail = (e) => {
