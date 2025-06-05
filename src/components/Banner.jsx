@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react'; // Asegurate de tener instalada la librería lucide-react
-import WhatsAppButton from "./WhatsAppButton";
+import { ChevronDown } from 'lucide-react';
+import WhatsAppButton from './WhatsAppButton';
 
 const Banner = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   // Detectar si es un dispositivo móvil
   useEffect(() => {
@@ -20,13 +21,25 @@ const Banner = () => {
         y: (e.clientY - window.innerHeight / 2) / 50,
       });
     });
-  }, []); 
+  }, []);
+
+  // Ruta de video según dispositivo
+  const videoSource = isMobile ? '/videos/banner-mobile.mp4' : '/videos/banner-desktop.mp4';
 
   return (
     <section
       className="relative h-screen flex items-center justify-center overflow-hidden"
       onMouseMove={!isMobile ? handleMouseMove : null}
     >
+      {/* Imagen de respaldo */}
+      {!videoLoaded && (
+        <img
+          src="/fotos/banner-placeholder.png"
+          alt="Imagen de respaldo"
+          className="absolute top-0 left-0 w-full h-full object-cover"
+        />
+      )}
+
       {/* Video de fondo */}
       <video
         autoPlay
@@ -35,8 +48,9 @@ const Banner = () => {
         playsInline
         aria-hidden="true"
         className="absolute top-0 left-0 w-full h-full object-cover"
+        onLoadedData={() => setVideoLoaded(true)}
       >
-        <source src="/videos/banner.mp4" type="video/mp4" />
+        <source src={videoSource} type="video/mp4" />
         Tu navegador no soporta el video.
       </video>
 
@@ -68,7 +82,7 @@ const Banner = () => {
           whileTap={{ scale: 0.95 }}
           className="inline-block bg-blue-600/70 hover:bg-blue-700 transition px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-xl"
         >
-        ¡Solucitá Presupuesto!
+          ¡Solicitá Presupuesto!
         </motion.a>
       </motion.div>
 
@@ -89,7 +103,6 @@ const Banner = () => {
       </motion.a>
       <WhatsAppButton />
     </section>
-    
   );
 };
 
