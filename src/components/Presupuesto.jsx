@@ -123,14 +123,14 @@ const Presupuesto = () => {
                 />
               </div>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
+               <div className="flex items-center border rounded-xl px-4 py-3 gap-2">
                 <Ruler className="text-yellow-500 w-5 h-5" />
                 <input
                   type="number"
-                  placeholder="Alto de la ventana (cm)"
+                  placeholder="Ancho de la ventana (cm)"
                   required
-                  value={alto}
-                  onChange={(e) => setAlto(e.target.value)}
+                  value={ancho}
+                  onChange={(e) => setAncho(e.target.value)}
                   className="flex-1 outline-none bg-transparent"
                 />
               </div>
@@ -139,10 +139,10 @@ const Presupuesto = () => {
                 <Ruler className="text-yellow-500 w-5 h-5" />
                 <input
                   type="number"
-                  placeholder="Ancho de la ventana (cm)"
+                  placeholder="Alto de la ventana (cm)"
                   required
-                  value={ancho}
-                  onChange={(e) => setAncho(e.target.value)}
+                  value={alto}
+                  onChange={(e) => setAlto(e.target.value)}
                   className="flex-1 outline-none bg-transparent"
                 />
               </div>
