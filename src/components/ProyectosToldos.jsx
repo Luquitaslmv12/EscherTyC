@@ -4,9 +4,13 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const proyectos = [
   "/ProyectosRecientes/3.jpg",
+  "/ProyectosRecientes/toldo-11-8-2025.jpeg",
+  "/ProyectosRecientes/toldo2-11-8-2025.jpeg",
+  "/ProyectosRecientes/toldo3-11-8-2025.jpeg",
   "/ProyectosRecientes/4.jpg",
   "/ProyectosRecientes/8.jpg",
-  "/ProyectosRecientes/9.jpg",
+  "/ProyectosRecientes/toldo4-11-8-2025.jpeg",
+  //"/ProyectosRecientes/9.jpg",
   "/ProyectosRecientes/10.jpg",
   "/ProyectosRecientes/11.jpg",
   "/ProyectosRecientes/12.jpg",

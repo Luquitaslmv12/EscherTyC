@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const proyectos = [
+  "/ProyectosRecientes/cortina-11-8-2025.jpeg",
+  "/ProyectosRecientes/cortina2-11-8-2025.jpeg",
   "/ProyectosRecientes/1.jpg",
   "/ProyectosRecientes/2.jpg",
   "/ProyectosRecientes/5.jpg",
