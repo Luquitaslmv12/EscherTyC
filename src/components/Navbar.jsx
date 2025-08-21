@@ -5,29 +5,37 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
-  // Observar secciones para actualizar estado activo
-  useEffect(() => {
+  // Función para detectar la visibilidad de las secciones durante el scroll
+  const handleScroll = () => {
     const sections = ["servicios", "proyectos", "testimonios", "presupuestos"];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActiveSection(visible.target.id);
-      },
-      {
-        rootMargin: "-50% 0px -40% 0px",
-        threshold: 0.3,
-      }
-    );
-
     sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
+      const section = document.getElementById(id);
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        // Verifica si la sección está dentro de la ventana del navegador
+        if (rect.top >= 0 && rect.top <= window.innerHeight * 0.5) {
+          setActiveSection(id);
+          // Cambia la URL sin recargar la página
+          window.history.pushState(null, "", `#${id}`);
+        }
+      }
     });
+  };
 
-    return () => observer.disconnect();
+  useEffect(() => {
+    // Agregar evento de scroll
+    window.addEventListener("scroll", handleScroll);
+
+    // Llamar a handleScroll al cargar la página por si hay una sección visible
+    handleScroll();
+
+    // Limpiar el evento de scroll al desmontar el componente
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  // Función para manejar click en enlaces
+  // Función para manejar el click en enlaces
   const handleLinkClick = () => {
     setIsOpen(false);
   };
