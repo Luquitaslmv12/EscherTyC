@@ -7,7 +7,7 @@ const Navbar = () => {
 
   // Función para detectar la visibilidad de las secciones durante el scroll
   const handleScroll = () => {
-    const sections = ["servicios", "proyectos", "testimonios", "presupuestos"];
+    const sections = ["servicios", "proyectos", "testimonios", "presupuesto"];
     sections.forEach((id) => {
       const section = document.getElementById(id);
       if (section) {
