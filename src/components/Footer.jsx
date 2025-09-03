@@ -9,6 +9,12 @@ import {
 } from "react-icons/fa";
 
 const Footer = () => {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const whatsappLink = isMobile
+  ? "https://wa.me/543447413069?text=Hola,%20quiero%20más%20información"
+  : "https://web.whatsapp.com/send?phone=543447413069&text=Hola,%20quiero%20más%20información";
+
+
   return (
     <footer className="bg-gray-900 text-white py-8 px-4">
       <div className="max-w-6xl mx-auto flex flex-col items-center md:flex-row md:items-start justify-between space-y-8 md:space-y-0 md:space-x-8">
@@ -45,13 +51,16 @@ const Footer = () => {
             <span>Av. Pres. Juan Domingo Perón 137 - Colón, Entre Ríos</span>
           </div>
           <div className="flex items-center justify-center md:justify-start space-x-2">
-            <FaWhatsapp
-              className="text-green-400"
-              size={18}
-              aria-hidden="true"
-            />
-            <a>+54 3447413069</a>
-          </div>
+  <FaWhatsapp className="text-green-400" size={18} aria-hidden="true" />
+  <a
+    href={whatsappLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline  focus:outline-none"
+  >
+    +54 3447413069
+  </a>
+</div>
         </div>
 
         {/* Ubicación - Centro */}

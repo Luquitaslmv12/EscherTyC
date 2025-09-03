@@ -68,7 +68,7 @@ const Servicios = () => {
                   onClick={() =>
                      document.getElementById(servicio.destino)?.scrollIntoView({ behavior: "smooth" })
                   }
-                  className="bg-white text-gray-800 font-medium px-5 py-2 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300 shadow"
+                  className="bg-white text-gray-800 font-medium px-5 py-2 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300 shadow cursor-pointer"
                 >
                   Ver más
                 </button>

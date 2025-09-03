@@ -7,7 +7,7 @@ const Navbar = () => {
 
   // Función para detectar la visibilidad de las secciones durante el scroll
   const handleScroll = () => {
-    const sections = ["servicios", "proyectos", "testimonios", "presupuesto"];
+    const sections = ["servicios", "cortinas", "toldos", "testimonios", "presupuesto"];
     sections.forEach((id) => {
       const section = document.getElementById(id);
       if (section) {
@@ -60,15 +60,19 @@ const Navbar = () => {
               Servicios
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
-            <a href="#proyectos" className={linkClass("proyectos")}>
-              Proyectos
+            <a href="#cortinas" className={linkClass("cortinas")}>
+              Cortinas
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="#toldos" className={linkClass("toldos")}>
+              Toldos
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
             <a href="#testimonios" className={linkClass("testimonios")}>
               Testimonios
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
-            <a href="#presupuesto" className={linkClass("presupuestos")}>
+            <a href="#presupuesto" className={linkClass("presupuesto")}>
               Presupuestos
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
@@ -98,11 +102,18 @@ const Navbar = () => {
           Servicios
         </a>
         <a
-          href="#proyectos"
+          href="#cortinas"
           className="hover:text-blue-500 transition text-lg"
           onClick={handleLinkClick}
         >
-          Proyectos
+          Cortinas
+        </a>
+        <a
+          href="#toldos"
+          className="hover:text-blue-500 transition text-lg"
+          onClick={handleLinkClick}
+        >
+          Toldos
         </a>
         <a
           href="#testimonios"
